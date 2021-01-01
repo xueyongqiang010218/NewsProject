@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="" method="post">
+    <table align="center" border="1">
+        <tr>
+            <td colspan="8"><a href="/add/">添加新闻信息</a>&nbsp;&nbsp;
+                根据新闻类型进行查询：&nbsp;&nbsp;
+                <select name="select" id="select" onchange="submit()">
+                    {% if val %}
+                    <option value="">{{ val }}</option>
+                    {% endif %}
+                    <option value="体育">体育</option>
+                    <option value="娱乐">娱乐</option>
+                    <option value="科技">科技</option>
+                    <option value="财经">财经</option>
+                    <option value="军事">军事</option>
+                    <option value="国际">国际</option>
+                </select>
+            </td>
+        </tr>
+        <tr align="center">
+            <td>新闻编号</td>
+            <td>新闻标题</td>
+            <td>新闻作者</td>
+            <td>新闻内容</td>
+            <td>发布时间</td>
+            <td>新闻状态</td>
+            <td>新闻类型</td>
+            <td>编辑</td>
+        </tr>
+
+        {% for ni in ni %}
+        <tr align="center">
+            <td>{{ ni.id }}</td>
+            <td>{{ ni.nTitle }}</td>
+            <td>{{ ni.nAuthor }}</td>
+            <td>{{ ni.nContent }}</td>
+            <td>{{ ni.nPubDateTime }}</td>
+            <td>
+                {% if ni.nStatus == 0 %}{{ '未审核' }}{% endif %}
+                {% if ni.nStatus == 1 %}{{ '已审核' }}{% endif %}
+            </td>
+            <td id="type">{{ ni.tid.tName }}</td>
+            <td><a onclick="ale()" href="{% url 'delete' ni.id %}">删除</a></td>
+        </tr>
+        {% endfor %}
+
+        {% for ni in all %}
+        <tr align="center">
+            <td>{{ ni.id }}</td>
+            <td>{{ ni.nTitle }}</td>
+            <td>{{ ni.nAuthor }}</td>
+            <td>{{ ni.nContent }}</td>
+            <td>{{ ni.nPubDateTime }}</td>
+            <td>
+                {% if ni.nStatus == 0 %}{{ '未审核' }}{% endif %}
+                {% if ni.nStatus == 1 %}{{ '已审核' }}{% endif %}
+            </td>
+            <td id="type">{{ ni.tid.tName }}</td>
+            <td><a onclick="ale()" href="{% url 'delete' ni.id %}">删除</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</form>
+
+</body>
+
+<script>
+    function ale(){
+        alert('删除成功')
+    }
+
+    function submit(){
+        document.getElementById('select').submit()
+    }
+</script>
+</html>
